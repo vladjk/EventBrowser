@@ -20,21 +20,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
-    //TextView a,b,c,d,e;
-    Button mapButton;
+    //Button mapButton;
     DatabaseReference eventDatabase;
     RecyclerView newsfeedList;
+    private static Context mContext;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toast.makeText(this, "Firebase connection established", Toast.LENGTH_SHORT).show();
+        mContext = this;
+       // Toast.makeText(this, "Firebase connection established", Toast.LENGTH_SHORT).show();
 
         eventDatabase = FirebaseDatabase.getInstance().getReference().child("Event");
         eventDatabase.keepSynced(true);
@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         public FeedViewHolder(View itemView){
             super(itemView);
             mView=itemView;
+
         }
         public void setName(String name){
             TextView post_name = (TextView)mView.findViewById(R.id.post_name);
@@ -96,20 +97,24 @@ public class MainActivity extends AppCompatActivity {
             post_date.setText(date);
         }
 
-        public void setMap(String map){
-            TextView post_map = (TextView)mView.findViewById(R.id.post_map);
-            post_map.setText(map);
+        public void setMap(final String map){
+            Button post_map = (Button)mView.findViewById(R.id.post_map);
+
+            /* On click listener for the maps button, opens maps with the according location */
+            post_map.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Uri uri = Uri.parse(map);
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.setData(uri);
+                    mContext.startActivity(intent);
+                }
+            });
+
         }
     }
 
-    //opens location in google maps from button click
-    public void openMaps(View view){
-        Uri uri = Uri.parse(""); //Set this value to the link from Firebase
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.setData(uri);
-        startActivity(intent);
-    }
     public void addFavorite(View view){
         Toast.makeText(this, "Feature soon to be added...", Toast.LENGTH_SHORT).show();
     }
