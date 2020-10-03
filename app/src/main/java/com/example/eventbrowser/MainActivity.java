@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,8 +24,8 @@ import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView a,b,c,d,e;
-    Button btn;
+    //TextView a,b,c,d,e;
+    Button mapButton;
     DatabaseReference eventDatabase;
     RecyclerView newsfeedList;
 
@@ -52,8 +54,10 @@ public class MainActivity extends AppCompatActivity {
             protected void populateViewHolder(FeedViewHolder feedViewHolder, Feed feed, int i) {
             feedViewHolder.setName(feed.getName());
             feedViewHolder.setDesc(feed.getDesc());
+            feedViewHolder.setLoc(feed.getLoc());
+            feedViewHolder.setMap(feed.getMap());
+            feedViewHolder.setDate(feed.getDate());
             feedViewHolder.setImage(getApplicationContext(),feed.getImage());
-
 
             }
         };
@@ -61,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         newsfeedList.setAdapter(firebaseRecyclerAdapter);
     }
 
+
+    // retrieve contents from Firebase into to the Cardview
     public static class FeedViewHolder extends RecyclerView.ViewHolder{
         View mView;
         public FeedViewHolder(View itemView){
@@ -75,10 +81,37 @@ public class MainActivity extends AppCompatActivity {
             TextView post_desc = (TextView)mView.findViewById(R.id.post_desc);
             post_desc.setText(desc);
         }
+        //Picasso API for image rendering and compression
         public void setImage(Context ctx,String image){
             ImageView post_image=(ImageView)mView.findViewById(R.id.post_image);
             Picasso.with(ctx).load(image).into(post_image);
 
         }
+        public void setLoc(String loc){
+            TextView post_loc = (TextView)mView.findViewById(R.id.post_loc);
+            post_loc.setText(loc);
+        }
+        public void setDate(String date){
+            TextView post_date = (TextView)mView.findViewById(R.id.post_date);
+            post_date.setText(date);
+        }
+
+        public void setMap(String map){
+            TextView post_map = (TextView)mView.findViewById(R.id.post_map);
+            post_map.setText(map);
+        }
     }
+
+    //opens location in google maps from button click
+    public void openMaps(View view){
+        Uri uri = Uri.parse(""); //Set this value to the link from Firebase
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setData(uri);
+        startActivity(intent);
+    }
+    public void addFavorite(View view){
+        Toast.makeText(this, "Feature soon to be added...", Toast.LENGTH_SHORT).show();
+    }
+
 }
