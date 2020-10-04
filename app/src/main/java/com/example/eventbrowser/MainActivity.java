@@ -23,7 +23,7 @@ import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
 
-    //Button mapButton;
+    Button openFavorite;
     DatabaseReference eventDatabase;
     RecyclerView newsfeedList;
     private static Context mContext;
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             TextView post_desc = (TextView)mView.findViewById(R.id.post_desc);
             post_desc.setText(desc);
         }
-        //Picasso API for image rendering and compression
+        /*Picasso API for image rendering and compression */
         public void setImage(Context ctx,String image){
             ImageView post_image=(ImageView)mView.findViewById(R.id.post_image);
             Picasso.with(ctx).load(image).into(post_image);
@@ -116,6 +116,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addFavorite(View view){
+        Button post_favorite =(Button)findViewById(R.id.post_favorite);
+        post_favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
         Toast.makeText(this, "Feature soon to be added...", Toast.LENGTH_SHORT).show();
     }
 
