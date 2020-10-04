@@ -1,6 +1,5 @@
 package com.example.eventbrowser;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,9 +22,9 @@ import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button openFavorite;
     DatabaseReference eventDatabase;
     RecyclerView newsfeedList;
+    /* Allows static methods to be called by other methods */
     private static Context mContext;
 
 
@@ -34,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = this;
-       // Toast.makeText(this, "Firebase connection established", Toast.LENGTH_SHORT).show();
 
         eventDatabase = FirebaseDatabase.getInstance().getReference().child("Event");
         eventDatabase.keepSynced(true);
@@ -42,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         newsfeedList = (RecyclerView) findViewById(R.id.recycleViewFeed);
         newsfeedList.setHasFixedSize(true);
         newsfeedList.setLayoutManager(new LinearLayoutManager(this));
+
 
     }
 
