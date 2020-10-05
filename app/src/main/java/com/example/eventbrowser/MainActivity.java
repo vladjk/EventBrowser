@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /** Onclick listeners for menu items**/
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /** Onclick listeners for menu items**/
+
 
 
     @Override
