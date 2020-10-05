@@ -73,7 +73,6 @@ public class FavoriteActivity extends AppCompatActivity {
         public FeedViewHolder(View itemView){
             super(itemView);
             mView=itemView;
-
         }
         public void setName(String name){
             TextView post_name = (TextView)mView.findViewById(R.id.post_name);
