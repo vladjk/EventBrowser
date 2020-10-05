@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     DatabaseReference eventDatabase;
     RecyclerView newsfeedList;
-    /* Allows static methods to be called by other methods */
+    /** Allows static methods to be called by other methods **/
     private static Context mContext;
 
 
@@ -37,11 +37,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /** Allows static methods to be called by other methods **/
         mContext = this;
 
+        /** Gets according table from firebase and keeps it synced in realtime **/
         eventDatabase = FirebaseDatabase.getInstance().getReference().child("Event");
         eventDatabase.keepSynced(true);
 
+        /** References the feed and shows contents**/
         newsfeedList = (RecyclerView) findViewById(R.id.recycleViewFeed);
         newsfeedList.setHasFixedSize(true);
         newsfeedList.setLayoutManager(new LinearLayoutManager(this));
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         /** Reference toolbar **/
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle("Home");
 
     }
 
@@ -65,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.item_favorite:
+                Intent intent = new Intent(this, FavoriteActivity.class);
+                startActivity(intent);
                 Toast.makeText(this, "Favorite selected", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.item_settings:
@@ -99,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // retrieve contents from Firebase into to the Cardview
+    /** retrieve contents from Firebase into to the Cardview **/
     public static class FeedViewHolder extends RecyclerView.ViewHolder{
         View mView;
         public FeedViewHolder(View itemView){
@@ -115,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
             TextView post_desc = (TextView)mView.findViewById(R.id.post_desc);
             post_desc.setText(desc);
         }
-        /*Picasso API for image rendering and compression */
+        /** Picasso API for image rendering and compression **/
         public void setImage(Context ctx,String image){
             ImageView post_image=(ImageView)mView.findViewById(R.id.post_image);
             Picasso.with(ctx).load(image).into(post_image);
@@ -133,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         public void setMap(final String map){
             Button post_map = (Button)mView.findViewById(R.id.post_map);
 
-            /* On click listener for the maps button, opens maps with the according location */
+            /** On click listener for the maps button, opens maps with the according location **/
             post_map.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
