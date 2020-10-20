@@ -67,7 +67,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/post_favorite"
             android:text="Add to Favorite"
-            android:onClick="addFavorite"
             />
 
     </LinearLayout>

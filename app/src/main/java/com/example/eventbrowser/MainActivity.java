@@ -24,10 +24,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+
 
 public class MainActivity extends AppCompatActivity {
 
     DatabaseReference eventDatabase;
+    DatabaseReference favoriteDatabase;
     RecyclerView newsfeedList;
     /** Allows static methods to be called by other methods **/
     private static Context mContext;
@@ -44,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
         /** Gets according table from firebase and keeps it synced in realtime **/
         eventDatabase = FirebaseDatabase.getInstance().getReference().child("Event");
         eventDatabase.keepSynced(true);
+
+        favoriteDatabase = FirebaseDatabase.getInstance().getReference().child("Favorite");
+        favoriteDatabase.keepSynced(true);
+
 
         /** References the feed and shows contents**/
         newsfeedList = (RecyclerView) findViewById(R.id.recycleViewFeed);
@@ -72,12 +79,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.item_favorite:
                 Intent intent1 = new Intent(this, FavoriteActivity.class);
                 startActivity(intent1);
-                Toast.makeText(this, "Favorite selected", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.item_settings:
                 Intent intent2 = new Intent(this, SettingsActivity.class);
                 startActivity(intent2);
-                Toast.makeText(this, "Settings selected", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -98,11 +103,11 @@ public class MainActivity extends AppCompatActivity {
             feedViewHolder.setMap(feed.getMap());
             feedViewHolder.setDate(feed.getDate());
             feedViewHolder.setImage(getApplicationContext(),feed.getImage());
-
+            feedViewHolder.addFav(feed.getName(),feed.getDesc(),feed.getLoc(),feed.getMap(),feed.getDate(),feed.getImage());
             }
         };
-
         newsfeedList.setAdapter(firebaseRecyclerAdapter);
+
     }
 
 
@@ -114,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
             mView=itemView;
 
         }
-        public void setName(String name){
+        public void setName(final String name){
             TextView post_name = (TextView)mView.findViewById(R.id.post_name);
             post_name.setText(name);
         }
@@ -153,16 +158,29 @@ public class MainActivity extends AppCompatActivity {
             });
 
         }
-    }
 
-    public void addFavorite(View view){
-        Button post_favorite =(Button)findViewById(R.id.post_favorite);
-        post_favorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
-        Toast.makeText(this, "Feature soon to be added...", Toast.LENGTH_SHORT).show();
+        public void addFav(final String name, final String desc, final String loc, final String map, final String date, final String image){
+            Button post_favorite =(Button)mView.findViewById(R.id.post_favorite);
+
+            post_favorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    HashMap<String, Object> fav = new HashMap<>();
+                    fav.put("name",name);
+                    fav.put("map",map);
+                    fav.put("loc",loc);
+                    fav.put("image",image);
+                    fav.put("desc",desc);
+                    fav.put("date",date);
+
+                    FirebaseDatabase.getInstance().getReference().child("Favorite").push().updateChildren(fav);
+
+                    Toast.makeText(mContext, "Added to favorites", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
     }
 
 }
