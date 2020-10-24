@@ -7,6 +7,7 @@ public class Feed {
     private String desc;
     private String date;
     private String image;
+    private String key;
 
     public Feed(String name, String map, String loc, String desc, String date,String image) {
         this.name = name;
@@ -15,6 +16,14 @@ public class Feed {
         this.desc = desc;
         this.date = date;
         this.image = image;
+        this.key = key;
+    }
+
+    public String getKey() {
+        return key;
+    }
+    public void setKey(){
+        this.key = key;
     }
 
     public String getName() {

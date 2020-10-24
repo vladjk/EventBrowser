@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference eventDatabase;
     DatabaseReference favoriteDatabase;
     RecyclerView newsfeedList;
-    /** Allows static methods to be called by other methods **/
+    // Allows static methods to be called by other methods
     private static Context mContext;
 
 
@@ -41,30 +41,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /** Allows static methods to be called by other methods **/
+        // Allows static methods to be called by other methods
         mContext = this;
 
-        /** Gets according table from firebase and keeps it synced in realtime **/
+        // Gets according table from firebase and keeps it synced in realtime
         eventDatabase = FirebaseDatabase.getInstance().getReference().child("Event");
         eventDatabase.keepSynced(true);
 
+        //Gets database reference of the "Favorites" database
         favoriteDatabase = FirebaseDatabase.getInstance().getReference().child("Favorite");
         favoriteDatabase.keepSynced(true);
 
-
-        /** References the feed and shows contents**/
+        // References the feed and shows contents
         newsfeedList = (RecyclerView) findViewById(R.id.recycleViewFeed);
         newsfeedList.setHasFixedSize(true);
         newsfeedList.setLayoutManager(new LinearLayoutManager(this));
 
-        /** Reference toolbar **/
+        // Reference toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("Home");
-
     }
 
-    /** Override and reference menu **/
+    // Override and reference menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    /** Onclick listeners for menu items**/
+    //Menu options, onclick listeners for menu items
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
@@ -89,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    //Stores data from firebase into adapter.
     @Override
     protected void onStart() {
         super.onStart();
@@ -111,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /** retrieve contents from Firebase into to the Cardview **/
+    // Retrieve contents from the viewholder adapter into to the Cardview textviews
     public static class FeedViewHolder extends RecyclerView.ViewHolder{
         View mView;
         public FeedViewHolder(View itemView){
@@ -127,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
             TextView post_desc = (TextView)mView.findViewById(R.id.post_desc);
             post_desc.setText(desc);
         }
-        /** Picasso API for image rendering and compression **/
+        // Picasso API for image rendering and compression
         public void setImage(Context ctx,String image){
             ImageView post_image=(ImageView)mView.findViewById(R.id.post_image);
             Picasso.with(ctx).load(image).into(post_image);
@@ -145,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         public void setMap(final String map){
             Button post_map = (Button)mView.findViewById(R.id.post_map);
 
-            /** On click listener for the maps button, opens maps with the according location **/
+            // On click listener for the maps button, opens maps with the according location
             post_map.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -158,13 +157,16 @@ public class MainActivity extends AppCompatActivity {
             });
 
         }
-
+        // On click listener for the Add favorite button
         public void addFav(final String name, final String desc, final String loc, final String map, final String date, final String image){
             Button post_favorite =(Button)mView.findViewById(R.id.post_favorite);
+
 
             post_favorite.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    String key = FirebaseDatabase.getInstance().getReference().child("Favorite").push().getKey();
 
                     HashMap<String, Object> fav = new HashMap<>();
                     fav.put("name",name);
@@ -173,12 +175,18 @@ public class MainActivity extends AppCompatActivity {
                     fav.put("image",image);
                     fav.put("desc",desc);
                     fav.put("date",date);
+                    fav.put("id", key);
 
                     FirebaseDatabase.getInstance().getReference().child("Favorite").push().updateChildren(fav);
 
                     Toast.makeText(mContext, "Added to favorites", Toast.LENGTH_LONG).show();
                 }
             });
+        }
+
+        public void deleteFav(){
+            DatabaseReference fb = FirebaseDatabase.getInstance().getReference().child("Favorite");
+
         }
 
     }
