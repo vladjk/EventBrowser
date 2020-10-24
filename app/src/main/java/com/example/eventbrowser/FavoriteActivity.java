@@ -80,7 +80,7 @@ public class FavoriteActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        // Retrieves "Favorite" table specific data
+        // Retrieves "Favorite" table s pecific data
         FirebaseRecyclerAdapter<Feed, MainActivity.FeedViewHolder> firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<Feed, MainActivity.FeedViewHolder>
                 (Feed.class,R.layout.eventcard_favorite, MainActivity.FeedViewHolder.class, favoriteDatabase) {
             @Override
