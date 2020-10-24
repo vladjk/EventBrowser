@@ -9,7 +9,7 @@ public class Feed {
     private String image;
     private String key;
 
-    public Feed(String name, String map, String loc, String desc, String date,String image) {
+    public Feed(String name, String map, String loc, String desc, String date,String image, String key) {
         this.name = name;
         this.map = map;
         this.loc = loc;

@@ -184,10 +184,6 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        public void deleteFav(){
-            DatabaseReference fb = FirebaseDatabase.getInstance().getReference().child("Favorite");
-
-        }
 
     }
 

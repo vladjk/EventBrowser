@@ -1,5 +1,6 @@
 package com.example.eventbrowser;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,6 +10,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,7 +35,11 @@ public class FavoriteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_favorite);
+
+        // Reference to correct layout, to prevent nullobject reference errors when refferenecing to eventcard_favorite elements
+        //View view = getLayoutInflater().inflate(R.layout.eventcard_favorite,null);
 
         // Gets according table from firebase and keeps it synced in realtime
         favoriteDatabase = FirebaseDatabase.getInstance().getReference().child("Favorite");
@@ -46,7 +54,26 @@ public class FavoriteActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("Favorites");
+    }
 
+    // Override and reference menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar_menu_favorite, menu);
+        return true;
+    }
+
+    //Menu options, onclick listeners for menu items
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.item_delete:
+                Toast.makeText(this,"Favorites Cleared", Toast.LENGTH_LONG).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -68,6 +95,10 @@ public class FavoriteActivity extends AppCompatActivity {
             }
         };
         newsfeedList.setAdapter(firebaseRecyclerAdapter);
+    }
+
+    public void deleteFav(){
+
     }
 
 }
