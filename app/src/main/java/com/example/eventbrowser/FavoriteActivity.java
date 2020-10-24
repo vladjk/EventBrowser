@@ -69,7 +69,7 @@ public class FavoriteActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.item_delete:
-                Toast.makeText(this,"Favorites Cleared", Toast.LENGTH_LONG).show();
+                deleteFav();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -98,7 +98,9 @@ public class FavoriteActivity extends AppCompatActivity {
     }
 
     public void deleteFav(){
-
+        DatabaseReference delFav = FirebaseDatabase.getInstance().getReference("Favorite").getRef();
+        delFav.removeValue();
+        Toast.makeText(this,"Favorites Cleared", Toast.LENGTH_LONG).show();
     }
 
 }

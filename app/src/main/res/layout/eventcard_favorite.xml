@@ -62,12 +62,6 @@
             android:id="@+id/post_map"
             android:text="Maps"
             />
-        <Button
-            android:id="@+id/post_delete"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="Delete"
-            />
 
     </LinearLayout>
 
