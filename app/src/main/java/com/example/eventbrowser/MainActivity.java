@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -142,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void setMap(final String map){
-            Button post_map = (Button)mView.findViewById(R.id.post_map);
+            ImageButton post_map = (ImageButton)mView.findViewById(R.id.post_map);
 
             // On click listener for the maps button, opens maps with the according location
             post_map.setOnClickListener(new View.OnClickListener() {
@@ -159,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         }
         // On click listener for the Add favorite button
         public void addFav(final String name, final String desc, final String loc, final String map, final String date, final String image){
-            Button post_favorite =(Button)mView.findViewById(R.id.post_favorite);
+            ImageButton post_favorite =(ImageButton)mView.findViewById(R.id.post_favorite);
 
 
             post_favorite.setOnClickListener(new View.OnClickListener() {
