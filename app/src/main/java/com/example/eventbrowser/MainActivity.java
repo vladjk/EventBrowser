@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
             feedViewHolder.setDate(feed.getDate());
             feedViewHolder.setImage(getApplicationContext(),feed.getImage());
             feedViewHolder.addFav(feed.getName(),feed.getDesc(),feed.getLoc(),feed.getMap(),feed.getDate(),feed.getImage());
+            feedViewHolder.addToCalendar();
             }
         };
         newsfeedList.setAdapter(firebaseRecyclerAdapter);
@@ -185,6 +186,18 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
+        public void addToCalendar(){
+            ImageButton calendarAdd = mView.findViewById(R.id.post_calendar);
+
+            calendarAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(mContext, "Feature coming soon", Toast.LENGTH_LONG).show();
+                }
+            });
+
+
+        }
 
     }
 

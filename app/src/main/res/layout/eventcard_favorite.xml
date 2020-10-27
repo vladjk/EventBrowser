@@ -64,6 +64,16 @@
             android:id="@+id/post_map"
             android:text="Maps"
             />
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/post_calendar"
+            android:layout_below="@id/post_date"
+            android:layout_toRightOf="@id/post_favorite"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_calendar"
+            android:text="Add to Calendar"
+            />
 
 
     </LinearLayout>
