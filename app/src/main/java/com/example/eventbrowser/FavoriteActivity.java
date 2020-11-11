@@ -96,7 +96,7 @@ public class FavoriteActivity extends AppCompatActivity {
                 feedViewHolder.setMap(feed.getMap());
                 feedViewHolder.setDate(feed.getDate());
                 feedViewHolder.setImage(getApplicationContext(),feed.getImage());
-                feedViewHolder.addToCalendar();
+                feedViewHolder.addToCalendar(feed.getName(), feed.getDesc(),feed.getLoc(),feed.getDate());
                 feedViewHolder.expandFav();
 
             }

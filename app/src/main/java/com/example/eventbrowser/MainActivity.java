@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.Menu;
@@ -31,6 +32,7 @@ import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 
@@ -110,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             feedViewHolder.setDate(feed.getDate());
             feedViewHolder.setImage(getApplicationContext(),feed.getImage());
             feedViewHolder.addFav(feed.getName(),feed.getDesc(),feed.getLoc(),feed.getMap(),feed.getDate(),feed.getImage());
-            feedViewHolder.addToCalendar();
+            feedViewHolder.addToCalendar(feed.getName(), feed.getDesc(),feed.getLoc(),feed.getDate());
             feedViewHolder.expand();
             }
         };
@@ -193,18 +195,27 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        public void addToCalendar(){
+        public void addToCalendar(final String name,final String desc,final String loc,final String date){
             ImageButton calendarAdd = mView.findViewById(R.id.post_calendar);
 
             calendarAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(mContext, "Feature coming soon", Toast.LENGTH_LONG).show();
+
+                    Intent intent = new Intent(Intent.ACTION_EDIT);
+                    intent.setType("vnd.android.cursor.item/event");
+                    intent.putExtra("title", name);
+                    intent.putExtra("description", desc);
+                    intent.putExtra("eventLocation",loc);
+                    intent.putExtra("allDay", true);
+                    mContext.startActivity(intent);
+
+                    Toast.makeText(mContext, "Opening calendar", Toast.LENGTH_LONG).show();
                 }
             });
 
-
         }
+
         //expands according cardview to show desc, buttons in MainActivity.
         public void expand(){
             final CardView cardviewBtn = mView.findViewById(R.id.cardviewBtn);
