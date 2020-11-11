@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsActivity">
+    tools:context=".SettingsActivity"
+    android:background="@color/colorPrimaryDark">
 
     <include
         layout="@layout/toolbar"
@@ -15,6 +16,7 @@
         android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
         android:text="Check internet connection availability"
         />
     <Button
@@ -24,5 +26,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Check Network"
+        android:background="@color/colorPrimary"
         />
 </RelativeLayout>

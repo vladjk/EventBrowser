@@ -178,7 +178,6 @@ public class MainActivity extends AppCompatActivity {
                     fav.put("image",image);
                     fav.put("desc",desc);
                     fav.put("date",date);
-                    fav.put("id", key);
 
                     FirebaseDatabase.getInstance().getReference().child("Favorite").push().updateChildren(fav);
 
