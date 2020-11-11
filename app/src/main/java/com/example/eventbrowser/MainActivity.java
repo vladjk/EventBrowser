@@ -3,6 +3,7 @@ package com.example.eventbrowser;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +12,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,6 +28,8 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 
@@ -106,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
             feedViewHolder.setImage(getApplicationContext(),feed.getImage());
             feedViewHolder.addFav(feed.getName(),feed.getDesc(),feed.getLoc(),feed.getMap(),feed.getDate(),feed.getImage());
             feedViewHolder.addToCalendar();
+            feedViewHolder.expand();
             }
         };
         newsfeedList.setAdapter(firebaseRecyclerAdapter);
@@ -184,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(mContext, "Added to favorites", Toast.LENGTH_LONG).show();
                 }
             });
+
         }
 
         public void addToCalendar(){
@@ -199,6 +206,36 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+        public void expand(){
+            final CardView cardviewBtn = mView.findViewById(R.id.cardviewBtn);
+            final TextView post_desc = mView.findViewById(R.id.post_desc);
+            final ImageButton calendarAdd = mView.findViewById(R.id.post_calendar);
+            final ImageButton post_favorite = mView.findViewById(R.id.post_favorite);
+            final ImageButton post_map = mView.findViewById(R.id.post_map);
+            final TextView post_readmore= mView.findViewById(R.id.post_readmore);
+
+            cardviewBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (post_desc.getVisibility()==View.GONE){
+                        TransitionManager.beginDelayedTransition(cardviewBtn, new AutoTransition());
+                        post_desc.setVisibility(View.VISIBLE);
+                        calendarAdd.setVisibility(View.VISIBLE);
+                        post_favorite.setVisibility(View.VISIBLE);
+                        post_map.setVisibility(View.VISIBLE);
+                        post_readmore.setVisibility(View.GONE);
+                    }else{
+                        TransitionManager.beginDelayedTransition(cardviewBtn, new AutoTransition());
+                        post_desc.setVisibility(View.GONE);
+                        calendarAdd.setVisibility(View.GONE);
+                        post_favorite.setVisibility(View.GONE);
+                        post_map.setVisibility(View.GONE);
+                        post_readmore.setVisibility(View.VISIBLE);
+                    }
+
+                }
+            });
+        }
     }
 
 }

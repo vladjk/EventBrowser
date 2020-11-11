@@ -3,6 +3,7 @@ package com.example.eventbrowser;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +29,7 @@ public class FavoriteActivity extends AppCompatActivity {
 
     DatabaseReference favoriteDatabase;
     RecyclerView newsfeedList;
+    CardView cardviewFavBtn;
 
     // Allows static methods to be called by other methods
     private static Context mContext;
