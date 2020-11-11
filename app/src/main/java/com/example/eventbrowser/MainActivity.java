@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
-
+        //expands according cardview to show desc, buttons in MainActivity.
         public void expand(){
             final CardView cardviewBtn = mView.findViewById(R.id.cardviewBtn);
             final TextView post_desc = mView.findViewById(R.id.post_desc);
@@ -229,6 +229,35 @@ public class MainActivity extends AppCompatActivity {
                         post_desc.setVisibility(View.GONE);
                         calendarAdd.setVisibility(View.GONE);
                         post_favorite.setVisibility(View.GONE);
+                        post_map.setVisibility(View.GONE);
+                        post_readmore.setVisibility(View.VISIBLE);
+                    }
+
+                }
+            });
+        }
+        //expands according cardview to show desc, buttons in FavoriteActivity. Requires own method because of different elements inside favoritecardview.
+        public void expandFav(){
+            final CardView cardviewBtn = mView.findViewById(R.id.cardviewFavBtn);
+            final TextView post_desc = mView.findViewById(R.id.post_desc);
+            final ImageButton calendarAdd = mView.findViewById(R.id.post_calendar);
+
+            final ImageButton post_map = mView.findViewById(R.id.post_map);
+            final TextView post_readmore= mView.findViewById(R.id.post_readmore);
+
+            cardviewBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (post_desc.getVisibility()==View.GONE){
+                        TransitionManager.beginDelayedTransition(cardviewBtn, new AutoTransition());
+                        post_desc.setVisibility(View.VISIBLE);
+                        calendarAdd.setVisibility(View.VISIBLE);
+                        post_map.setVisibility(View.VISIBLE);
+                        post_readmore.setVisibility(View.GONE);
+                    }else{
+                        TransitionManager.beginDelayedTransition(cardviewBtn, new AutoTransition());
+                        post_desc.setVisibility(View.GONE);
+                        calendarAdd.setVisibility(View.GONE);
                         post_map.setVisibility(View.GONE);
                         post_readmore.setVisibility(View.VISIBLE);
                     }

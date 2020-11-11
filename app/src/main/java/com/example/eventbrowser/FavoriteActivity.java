@@ -11,11 +11,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -94,6 +97,7 @@ public class FavoriteActivity extends AppCompatActivity {
                 feedViewHolder.setDate(feed.getDate());
                 feedViewHolder.setImage(getApplicationContext(),feed.getImage());
                 feedViewHolder.addToCalendar();
+                feedViewHolder.expandFav();
 
             }
         };
