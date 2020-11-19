@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(Intent.ACTION_EDIT);
                     intent.setType("vnd.android.cursor.item/event");
-                    intent.putExtra("title", name);
+                    intent.putExtra("title", name + " on " + date);
                     intent.putExtra("description", desc);
                     intent.putExtra("eventLocation",loc);
                     intent.putExtra("allDay", true);
