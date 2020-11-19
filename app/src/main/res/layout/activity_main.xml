@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -14,11 +14,31 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleViewFeed"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        android:paddingTop="50dp"
-        android:id="@+id/recycleViewFeed"/>
+        android:paddingTop="55dp" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/headerCV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        app:cardBackgroundColor="@color/colorPrimary"
+        android:elevation="5dp"
+        android:visibility="visible"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Happening near you"
+            android:textColor="@color/colorAccent"
+            android:textAlignment="center"
+            android:padding="2dp"
+            android:textSize="15dp"
+            />
+    </androidx.cardview.widget.CardView>
 
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</RelativeLayout>

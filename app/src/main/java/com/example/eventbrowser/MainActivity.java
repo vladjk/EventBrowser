@@ -32,8 +32,11 @@ import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.SimpleTimeZone;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -70,7 +73,10 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("Home");
+
+        hideHeader();
     }
+
 
     // Override and reference menu
     @Override
@@ -276,6 +282,30 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    public void hideHeader(){
+        final RecyclerView mRv = findViewById(R.id.recycleViewFeed);
+        final CardView cv = findViewById(R.id.headerCV);
+        mRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if(dy > 0){
+                    if(cv.getVisibility()==View.VISIBLE){
+                        TransitionManager.beginDelayedTransition(cv, new AutoTransition());
+                        cv.setVisibility(View.GONE);
+
+                    }
+                }
+                if (dy < 0){
+                    if(cv.getVisibility()==View.GONE){
+                        TransitionManager.beginDelayedTransition(cv, new AutoTransition());
+                        cv.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+        });
     }
 
 }
