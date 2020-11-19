@@ -28,4 +28,21 @@
         android:text="Check Network"
         android:background="@color/colorPrimary"
         />
+    <TextView
+        android:layout_marginTop="175dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        android:text="Check location services"
+        />
+    <Button
+        android:id="@+id/locationButton"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Check Location"
+        android:background="@color/colorPrimary"
+        />
 </RelativeLayout>
