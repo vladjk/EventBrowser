@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // Retrieve contents from the viewholder adapter into to the Cardview textviews
+    // Sets contents from the viewholder adapter into to the Cardview textviews
     public static class FeedViewHolder extends RecyclerView.ViewHolder{
         View mView;
         public FeedViewHolder(View itemView){
@@ -178,12 +178,9 @@ public class MainActivity extends AppCompatActivity {
         public void addFav(final String name, final String desc, final String loc, final String map, final String date, final String image){
             ImageButton post_favorite =(ImageButton)mView.findViewById(R.id.post_favorite);
 
-
             post_favorite.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                    String key = FirebaseDatabase.getInstance().getReference().child("Favorite").push().getKey();
 
                     HashMap<String, Object> fav = new HashMap<>();
                     fav.put("name",name);
@@ -253,12 +250,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-        //expands according cardview to show desc, buttons in FavoriteActivity. Requires own method because of different elements inside favoritecardview.
+
+        //expands according cardview to show desc, buttons in FavoriteActivity.
+        // Requires own method because of different elements inside favoritecardview.
         public void expandFav(){
             final CardView cardviewBtn = mView.findViewById(R.id.cardviewFavBtn);
             final TextView post_desc = mView.findViewById(R.id.post_desc);
             final ImageButton calendarAdd = mView.findViewById(R.id.post_calendar);
-
             final ImageButton post_map = mView.findViewById(R.id.post_map);
             final TextView post_readmore= mView.findViewById(R.id.post_readmore);
 
@@ -282,6 +280,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+
     }
 
     public void hideHeader(){

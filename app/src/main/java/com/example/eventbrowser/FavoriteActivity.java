@@ -43,9 +43,6 @@ public class FavoriteActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_favorite);
 
-        // Reference to correct layout, to prevent nullobject reference errors when refferenecing to eventcard_favorite elements
-        //View view = getLayoutInflater().inflate(R.layout.eventcard_favorite,null);
-
         // Gets according table from firebase and keeps it synced in realtime
         favoriteDatabase = FirebaseDatabase.getInstance().getReference().child("Favorite");
         favoriteDatabase.keepSynced(true);
